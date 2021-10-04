@@ -1,0 +1,10 @@
+{{$lastUser := ""}}
+
+{{range .Messages}}
+{{if (eq $lastUser (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID))}}
+{{template "followupMsg.html" .}}
+{{else}}
+{{template "firstUserMsg.html" .}}
+{{$lastUser = (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID)}}
+{{end}}
+{{end}}

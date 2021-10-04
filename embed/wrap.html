@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        {{.CSS}}
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Guild.Name}} - #{{.Channel.Name}}</title>
+</head>
+<body class="text-white">
+    <div class="bg-darkGray p-6 flex items-center">
+        <div class="flex-shrink-0">
+            <img src="{{.Guild.IconURL}}" alt="{{.Guild.Name}}'s icon" class="w-12 h-12 rounded-full" />
+        </div>
+        <div class="p-2">
+            <div class="text-xl"><span class="font-medium">{{.Guild.Name}} &middot;</span> <span class="font-light">#{{.Channel.Name}}</span></div>
+            <p class="font-light">ID: {{.Guild.ID}}</p>
+        </div>
+    </div>
+    <div>
+        {{.Content}}
+    </div>
+</body>
+</html>
