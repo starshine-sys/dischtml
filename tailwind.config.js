@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
     content: ["./embed/**/*.html", "./embed/**/*.js"],
-    safelist: ["emoji", "big-emoji", "font-bold", "bg-mentionBlurple", "text-blurple", "rounded", "p-1", "text-sm"],
+    safelist: ["emoji", "big-emoji", "font-bold", "bg-mentionBlurple", "text-blurple", "rounded", "p-1", "text-sm", "attachment-image"],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {

@@ -1,0 +1,13 @@
+{{if (isImage .)}}
+<div class="attachment">
+    <a href="{{.URL}}" title="{{.Filename}}"><img src="{{.URL}}" alt="{{.Filename}}" class="attachment-image rounded" /></a>
+</div>
+{{else}}
+<div class="attachment">
+    <div class="bg-darkGray border-hoverGray rounded-md border-1 p-2">
+        <a href="{{.URL}}" class="text-lg" title="{{.Filename}}">{{.Filename}}</a>
+        <br />
+        <span class="text-sm">{{byteSize .Size}}</span>
+    </div>
+</div>
+{{end}}

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/diamondburned/arikawa/v3/discord"
+	"github.com/dustin/go-humanize"
 	"github.com/russross/blackfriday/v2"
 )
 
@@ -74,6 +75,20 @@ var funcMap = template.FuncMap{
 	"isBot": func(m discord.Message) bool {
 		return m.Author.Bot && !m.WebhookID.IsValid()
 	},
+	"isImage": func(a discord.Attachment) bool {
+		switch {
+		case strings.HasSuffix(a.Filename, ".jpg"), strings.HasSuffix(a.Filename, ".jpeg"):
+			return true
+		case strings.HasSuffix(a.Filename, ".gif"):
+			return true
+		case strings.HasSuffix(a.Filename, ".png"):
+			return true
+		case strings.HasSuffix(a.Filename, ".webp"):
+			return true
+		}
+		return false
+	},
+	"byteSize": humanize.Bytes,
 }
 
 const emojiBaseURL = "https://cdn.discordapp.com/emojis/"

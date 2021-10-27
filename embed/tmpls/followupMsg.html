@@ -5,9 +5,8 @@
     <div class="mx-2 my-1 block" id="text">
         <div class="block inline inline-block">
             <p>{{.Content | emojiToImgs | parseMentions | msgMarkdown}}</p>
-            {{range .Embeds}}
-            {{template "embed.html" .}}
-            {{end}}
+            {{range .Attachments}}{{template "attachment.html" .}}{{end}}
+            {{range .Embeds}}{{template "embed.html" .}}{{end}}
         </div>
     </div>
 </div>
