@@ -18,8 +18,6 @@ type Converter struct {
 }
 
 // ConvertHTML converts messages to HTML.
-// The messages should be in reverse order, i.e. newest first.
-// They will be reversed in this function.
 func (c *Converter) ConvertHTML(msg []discord.Message) (template.HTML, error) {
 	sort.Slice(msg, func(i, j int) bool {
 		return msg[i].ID < msg[j].ID
@@ -40,13 +38,16 @@ func (c *Converter) ConvertHTML(msg []discord.Message) (template.HTML, error) {
 
 // Wrap wraps the given string into a complete HTML page.
 // For more control over this, use the exported HTMLPage and CSS variables.
-func Wrap(guild discord.Guild, channel discord.Channel, s template.HTML) (string, error) {
+func Wrap(guild discord.Guild, channel discord.Channel, s template.HTML, msgCount int) (string, error) {
 	data := struct {
-		CSS     template.CSS
-		Guild   discord.Guild
-		Channel discord.Channel
-		Content template.HTML
-	}{CSS: template.CSS(CSS), Guild: guild, Channel: channel, Content: s}
+		HighlightCSS, CSS template.CSS
+		HighlightJS       template.JS
+		Twemoji           template.JS
+		Guild             discord.Guild
+		Channel           discord.Channel
+		Content           template.HTML
+		MsgCount          int
+	}{CSS: template.CSS(CSS), HighlightCSS: template.CSS(HighlightCSS), HighlightJS: template.JS(HighlightJS), Twemoji: template.JS(TwemojiJS), Guild: guild, Channel: channel, Content: s, MsgCount: msgCount}
 
 	var w bytes.Buffer
 

@@ -59,7 +59,7 @@ func main() {
 		return
 	}
 
-	full, err := dischtml.Wrap(c.Guild, f.Channel, html)
+	full, err := dischtml.Wrap(c.Guild, f.Channel, html, len(f.Messages))
 	if err != nil {
 		fmt.Println("Couldn't write full file:", err)
 		return

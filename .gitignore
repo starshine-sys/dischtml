@@ -1,4 +1,4 @@
 .vscode
 *.out.html
 *.json
-cmd/viewer/viewer
+viewer

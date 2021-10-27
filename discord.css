@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    a:link {
+        @apply text-linkColour;
+    }
+
+    a:visited {
+        @apply text-linkColour;
+    }
+
+    a:hover {
+        @apply text-linkColour;
+        @apply underline;
+    }
+
+    a:active {
+        @apply text-linkColour;
+        @apply underline;
+    }
+
+    strong > strong {
+        @apply font-normal;
+        @apply underline;
+    }
+
+    ServerInfo {
+        @apply hidden;
+    }
+
+    .message:hover .message-timestamp {
+        opacity: 1;
+        transition: opacity .1s;
+    }
+
+    .message .message-timestamp {
+        opacity: 0;
+        transition: opacity .1s;
+    }
+
+    .emoji {
+        height: 1em;
+        width: 1em;
+        margin: 0 .05em 0 .1em;
+        vertical-align: -0.1em;
+        display: inline;
+    }
+
+    code {
+        @apply bg-darkGray p-1;
+    }
+}

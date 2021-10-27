@@ -1,26 +1,46 @@
+<ServerInfo>
+    Server: {{.Guild.Name}} ({{.Guild.ID}})
+    Channel: {{.Channel.Name}} ({{.Channel.ID}})
+    Messages: {{.MsgCount}}
+</ServerInfo>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        {{.CSS}}
-    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Guild.Name}} - #{{.Channel.Name}}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> 
 </head>
 <body class="text-white">
-    <div class="bg-darkGray p-6 flex items-center">
-        <div class="flex-shrink-0">
-            <img src="{{.Guild.IconURL}}" alt="{{.Guild.Name}}'s icon" class="w-12 h-12 rounded-full" />
-        </div>
-        <div class="p-2">
-            <div class="text-xl"><span class="font-medium">{{.Guild.Name}} &middot;</span> <span class="font-light">#{{.Channel.Name}}</span></div>
-            <p class="font-light">ID: {{.Guild.ID}}</p>
+    <div class="bg-darkGray md:px-4">
+        <div class="bg-darkGray p-6 flex items-center">
+            <div class="flex-shrink-0">
+                <img src="{{.Guild.IconURL}}" alt="{{.Guild.Name}}'s icon" class="w-12 h-12 rounded-full" />
+            </div>
+            <div class="p-2">
+                <div class="text-xl"><span class="font-medium">{{.Guild.Name}} &middot;</span> <span class="font-light">#{{.Channel.Name}}</span></div>
+                <p class="font-light">ID: {{.Guild.ID}}</p>
+            </div>
         </div>
     </div>
-    <div>
+    <div class="bg-lightGray md:px-4">
         {{.Content}}
     </div>
+
+    <style>
+        {{.CSS}}
+        {{.HighlightCSS}}
+    </style>
+    <script>
+        {{.HighlightJS}}
+        hljs.highlightAll();
+        {{.Twemoji}}
+        twemoji.parse(document.body);
+    </script>
 </body>
 </html>

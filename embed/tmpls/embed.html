@@ -1,0 +1,36 @@
+<div class="bg-darkGray p-4 rounded-l" style="border-left-style: outset; border-left-width: 0.25em; border-color: #{{.Color | colour}};">
+    {{if .Author}}
+    <div class="flex items-center">
+        {{if .Author.Icon}}
+        <div class="flex-shrink-0">
+            <img src="{{.Author.Icon}}" alt="Author icon" class="w-6 h-6 rounded-full">
+        </div>
+        {{end}}
+        <div>
+            {{if .Author.URL}}
+            <a href="{{.Author.URL}}" class="text-blurple hover:underline">{{.Author.Name}}</a>
+            {{else}}
+            {{.Author.Name}}
+            {{end}}
+        </div>
+    </div>
+    {{end}}
+    {{if .Title}}
+    <div class="text-lg font-bold">
+    {{if .URL}}
+        <a href="{{.URL}}">{{.Title}}</a>
+    {{else}}
+        {{.Title}}
+    {{end}}
+    </div>
+    {{end}}
+    {{if .Description}}
+    <div>{{.Description | emojiToImgs | msgMarkdown}}</div>
+    {{end}}
+    {{range .Fields}}
+    <div>
+        <div class="font-bold">{{.Name}}</div>
+        <div>{{.Value | emojiToImgs | msgMarkdown}}</div>
+    </div>
+    {{end}}
+</div>

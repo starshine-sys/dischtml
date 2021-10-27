@@ -1,5 +1,13 @@
-<div class="flex items-center bg-lightGray hover:bg-darkGray px-2">
-    <div class="pl-12 m-2">
-        {{.Content | msgMarkdown}}
+<div class="message flex items-start bg-lightGray hover:bg-darkGray px-2">
+    <div class="message-timestamp mt-2 w-12 text-lighterGray text-xs text-center">
+        {{msgIDTime .ID}}
+    </div>
+    <div class="mx-2 my-1 block" id="text">
+        <div class="block inline inline-block">
+            <p>{{.Content | emojiToImgs | msgMarkdown}}</p>
+            {{range .Embeds}}
+            {{template "embed.html" .}}
+            {{end}}
+        </div>
     </div>
 </div>

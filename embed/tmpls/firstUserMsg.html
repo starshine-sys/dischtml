@@ -1,9 +1,14 @@
-<div class="flex items-center bg-lightGray hover:bg-darkGray p-2">
-    <div class="flex-shrink-0">
+<div class="message flex items-start bg-lightGray hover:bg-hoverGray p-2">
+    <div class="flex-shrink-0 mt-2">
         <img src="{{.Author.AvatarURL}}" alt="{{.Author.Username}}'s icon" class="w-12 h-12 rounded-full" onerror="this.onerror = null; this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
     </div>
-    <div class="m-2">
-        <div><span class="font-bold">{{.Author.Username}}</span> <span class="text-sm">{{.ID | msgIDTimestamp}} UTC</span></div>
-        <div>{{.Content | msgMarkdown}}</div>
+    <div class="m-2 block">
+        <div><span class="font-bold" class="text-3xl">{{.Author.Username}}</span>{{if (not (eq .Author.Discriminator "0000"))}}<span class="text-lighterGray">#{{.Author.Discriminator}}</span>{{end}} <span class="text-sm text-lighterGray message-timestamp">{{.ID | msgIDTimestamp}} UTC</span></div>
+        <div class="block inline inline-block">
+            <p>{{.Content | msgMarkdown}}</p>
+            {{range .Embeds}}
+            {{template "embed.html" .}}
+            {{end}}
+    </div>
     </div>
 </div>
