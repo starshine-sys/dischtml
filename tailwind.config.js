@@ -1,7 +1,7 @@
 module.exports = {
   purge: {
     content: ["./embed/**/*.html", "./embed/**/*.js"],
-    safelist: ["emoji"],
+    safelist: ["emoji", "big-emoji", "font-bold", "bg-mentionBlurple", "text-blurple", "rounded", "p-1", "text-sm"],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -18,12 +18,14 @@ module.exports = {
       lighterGray: "#bcbdbf",
       linkColour: "#00AFF4",
 
-      hoverGray: "32353b",
+      hoverGray: "#32353b",
+      mentionBlurple: "#404675",
+      mentionText: "#dee0fc",
     },
     extend: {
       fontFamily: {
-        'sans': ['Inter', 'Open Sans', 'Helvetica', 'Arial', 'sans-serif']
-      }
+        sans: ["Inter", "Open Sans", "Helvetica", "Arial", "sans-serif"],
+      },
     },
   },
   variants: {

@@ -4,7 +4,7 @@
     </div>
     <div class="mx-2 my-1 block" id="text">
         <div class="block inline inline-block">
-            <p>{{.Content | emojiToImgs | msgMarkdown}}</p>
+            <p>{{.Content | emojiToImgs | parseMentions | msgMarkdown}}</p>
             {{range .Embeds}}
             {{template "embed.html" .}}
             {{end}}

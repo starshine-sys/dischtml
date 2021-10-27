@@ -30,21 +30,7 @@ var HighlightCSS string
 //go:embed embed/highlightjs/highlight.min.js
 var HighlightJS string
 
-// TwemojiJS ...
-//go:embed embed/twemoji/twemoji.min.js
-var TwemojiJS string
-
 var htmlPageTmpl = template.Must(template.New("wrap").Parse(HTMLPage))
-
-var tmpls = template.Must(template.New("").Funcs(funcMap).ParseFS(fs, "embed/tmpls/*.html"))
-
-func init() {
-	dir, _ := fs.ReadDir(".")
-
-	for _, d := range dir {
-		fmt.Println(d.Name(), d.Type())
-	}
-}
 
 var funcMap = template.FuncMap{
 	"msgMarkdown": func(s string) template.HTML {
@@ -52,15 +38,20 @@ var funcMap = template.FuncMap{
 		return template.HTML(b)
 	},
 	"msgIDTimestamp": func(id discord.MessageID) template.HTML {
-		return template.HTML(id.Time().Format("2006-01-02 15:04"))
+		return template.HTML(id.Time().UTC().Format("2006-01-02 15:04"))
 	},
 	"msgIDTime": func(id discord.MessageID) template.HTML {
-		return template.HTML(id.Time().Format("15:04"))
+		return template.HTML(id.Time().UTC().Format("15:04"))
 	},
 	"colour": func(c discord.Color) template.CSS {
 		return template.CSS(fmt.Sprintf("%06X", c))
 	},
 	"emojiToImgs": func(s string) string {
+		big := ""
+		if onlyEmoji.MatchString(s) {
+			big = " big-emoji"
+		}
+
 		emojis := emojiMatch.FindAllString(s, -1)
 		if emojis == nil {
 			return s
@@ -75,13 +66,19 @@ var funcMap = template.FuncMap{
 			name := groups[2]
 			url := emojiBaseURL + groups[3] + ext
 
-			s = strings.NewReplacer(e, fmt.Sprintf(`<img class="emoji" src="%v" alt="%v" />`, url, name)).Replace(s)
+			s = strings.NewReplacer(e, fmt.Sprintf(`<img class="emoji%s" src="%v" alt="%v" />`, big, url, name)).Replace(s)
 		}
 
 		return s
+	},
+	"isBot": func(m discord.Message) bool {
+		return m.Author.Bot && !m.WebhookID.IsValid()
 	},
 }
 
 const emojiBaseURL = "https://cdn.discordapp.com/emojis/"
 
-var emojiMatch = regexp.MustCompile("<(?P<animated>a)?:(?P<name>\\w+):(?P<emoteID>\\d{15,})>")
+var (
+	emojiMatch = regexp.MustCompile("<(?P<animated>a)?:(?P<name>\\w+):(?P<emoteID>\\d{15,})>")
+	onlyEmoji  = regexp.MustCompile(`^(<(a)?:(\w+):(\d{15,})>|\s)*$`)
+)

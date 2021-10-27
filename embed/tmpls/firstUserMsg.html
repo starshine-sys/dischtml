@@ -3,9 +3,9 @@
         <img src="{{.Author.AvatarURL}}" alt="{{.Author.Username}}'s icon" class="w-12 h-12 rounded-full" onerror="this.onerror = null; this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
     </div>
     <div class="m-2 block">
-        <div><span class="font-bold" class="text-3xl">{{.Author.Username}}</span>{{if (not (eq .Author.Discriminator "0000"))}}<span class="text-lighterGray">#{{.Author.Discriminator}}</span>{{end}} <span class="text-sm text-lighterGray message-timestamp">{{.ID | msgIDTimestamp}} UTC</span></div>
+        <div>{{userColour .Author}}{{if (not (eq .Author.Discriminator "0000"))}}<span class="text-lighterGray">#{{.Author.Discriminator}}</span>{{end}} {{if (isBot .)}}<span class="text-white font-bold text-xs bg-blurple p-1 rounded">BOT</span> {{end}}<span class="text-sm text-lighterGray">{{.ID | msgIDTimestamp}} UTC</span></div>
         <div class="block inline inline-block">
-            <p>{{.Content | msgMarkdown}}</p>
+            <p>{{.Content | emojiToImgs | parseMentions | msgMarkdown}}</p>
             {{range .Embeds}}
             {{template "embed.html" .}}
             {{end}}

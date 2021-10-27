@@ -48,7 +48,18 @@
         display: inline;
     }
 
+    .big-emoji {
+        height: 3em;
+        width: 3em;
+        display: inline;
+    }
+
     code {
         @apply bg-darkGray p-1;
+    }
+
+    pre > code {
+        @apply overflow-scroll;
+        max-width: 50vw;
     }
 }
