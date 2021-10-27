@@ -1,10 +1,14 @@
 {{$lastUser := ""}}
+{{$lastMessage := (firstID .Messages)}}
 
 {{- range .Messages}}
-{{- if (eq $lastUser (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID))}}
+{{- if (and (eq $lastUser (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID)) (not (largeMessageGap $lastMessage .ID)))}}
 {{- template "followupMsg.html" .}}
+{{- $lastUser = (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID)}}
+{{- $lastMessage = .ID}}
 {{else}}
 {{- template "firstUserMsg.html" .}}
 {{- $lastUser = (printf "%s#%s-%d" .Author.Username .Author.Discriminator .Author.ID)}}
+{{- $lastMessage = .ID}}
 {{end}}
 {{end}}

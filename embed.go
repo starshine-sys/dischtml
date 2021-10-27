@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/diamondburned/arikawa/v3/discord"
 	"github.com/dustin/go-humanize"
@@ -89,6 +90,12 @@ var funcMap = template.FuncMap{
 		return false
 	},
 	"byteSize": humanize.Bytes,
+	"firstID": func(msgs []discord.Message) discord.MessageID {
+		return msgs[0].ID
+	},
+	"largeMessageGap": func(prev, current discord.MessageID) bool {
+		return current.Time().Sub(prev.Time()) > 5*time.Minute
+	},
 }
 
 const emojiBaseURL = "https://cdn.discordapp.com/emojis/"
