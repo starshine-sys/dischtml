@@ -111,7 +111,7 @@ func (c *Converter) funcs() template.FuncMap {
 
 func userColour(roles []discord.Role, roleIDs []discord.RoleID) discord.Color {
 	sort.Slice(roles, func(i, j int) bool {
-		return roles[i].Position < roles[j].Position
+		return roles[i].Position > roles[j].Position
 	})
 
 	for _, r := range roles {
