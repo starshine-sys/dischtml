@@ -2,6 +2,7 @@ package dischtml
 
 import (
 	"fmt"
+	"html/template"
 	"regexp"
 	"strings"
 
@@ -92,4 +93,13 @@ func (c *Converter) parseMentions(content string) string {
 	}
 
 	return content
+}
+
+func (c *Converter) extraInfo(id discord.MessageID) template.HTML {
+	s, ok := c.ExtraUserInfo[id]
+	if !ok {
+		return ""
+	}
+
+	return template.HTML(fmt.Sprintf(`<span class="text-lighterGray">%s</span> `, bluemonday.UGCPolicy().Sanitize(s)))
 }

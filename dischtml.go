@@ -21,6 +21,9 @@ type Converter struct {
 	Users    []discord.User
 	Members  []discord.Member
 
+	// Optionally shown for messages
+	ExtraUserInfo map[discord.MessageID]string
+
 	tmpl *template.Template
 }
 
@@ -86,6 +89,7 @@ func (c *Converter) funcs() template.FuncMap {
 	}
 
 	funcs["parseMentions"] = c.parseMentions
+	funcs["extraInfo"] = c.extraInfo
 	funcs["userColour"] = func(u discord.User) template.HTML {
 		var clr discord.Color
 		for _, m := range c.Members {

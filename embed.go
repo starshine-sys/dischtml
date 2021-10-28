@@ -74,7 +74,7 @@ var funcMap = template.FuncMap{
 		return s
 	},
 	"isBot": func(m discord.Message) bool {
-		return m.Author.Bot && !m.WebhookID.IsValid()
+		return m.Author.Bot && !m.WebhookID.IsValid() && m.Author.Discriminator != "0000"
 	},
 	"isImage": func(a discord.Attachment) bool {
 		switch {
